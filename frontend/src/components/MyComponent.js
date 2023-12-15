@@ -6,7 +6,9 @@ const MyComponent = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/my-model/')
-            .then(response => setData(response.data))
+            .then(response => {
+            setData(response.data);
+            console.log('Data received:', response.data);})
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
