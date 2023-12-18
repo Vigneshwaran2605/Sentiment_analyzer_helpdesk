@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
 
 class HomeView(APIView):
      
@@ -21,3 +22,11 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)          
         except Exception as e:               
             return Response(status=status.HTTP_400_BAD_REQUEST)
+@api_view(
+        ['GET']
+)
+def Userdetails(request,response):
+    return {
+        'email' : request.user.email,
+        'post' : request.user.post
+    }

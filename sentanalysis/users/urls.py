@@ -3,4 +3,5 @@ from .views import MyModelListCreateView
 
 urlpatterns = [
     path('my-model/', MyModelListCreateView.as_view(), name='my-model-list-create'), 
+    path('api/details')
 ]

@@ -28,4 +28,5 @@ urlpatterns = [
           name ='token_refresh'),
     path('home/', views.HomeView.as_view(), name ='home'),
     path('api/logout/', views.LogoutView.as_view(), name ='logout')
+    
 ]
