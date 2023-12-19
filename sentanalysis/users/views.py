@@ -16,6 +16,13 @@ from rest_framework.views import APIView
 import mimetypes
 
 from django.db.models import Sum
+from rest_framework import viewsets
+from .models import CallAnalysis
+from .serializers import CallAnalysisSerializer
+
+class CallAnalysisReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = CallAnalysis.objects.all()
+    serializer_class = CallAnalysisSerializer
 
 @api_view(['GET'])
 def send_audio_file(request, pk):
@@ -36,39 +43,6 @@ def send_audio_file(request, pk):
     else:
         return Response({'error': 'No audio file associated with this call record'}, status=status.HTTP_404_NOT_FOUND)
 
-
-# @csrf_exempt
-# @parser_classes([MultiPartParser, FormParser])
-# def create_call_history(request):
-#     if request.method == 'POST':
-#         serializer = CallHistorySerializer(data=request.data)
-#         if serializer.is_valid():
-#             client = serializer.validated_data['client']
-#             employee = request.user
-            
-#             # Check if the client and employee are of the correct type ('C' and 'E' respectively)
-#             if client.post != 'C' or employee.post != 'E':
-#                 return Response({'error': 'Invalid client or employee type'}, status=status.HTTP_400_BAD_REQUEST)
-            
-#             audio_file = request.FILES.get('audio_file')
-#             if audio_file:
-#                 file_path = os.path.join('calls', audio_file.name)
-#                 with open(file_path, 'wb+') as destination:
-#                     for chunk in audio_file.chunks():
-#                         destination.write(chunk)
-                
-#                 duration_command = f"ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {file_path}"
-#                 duration = subprocess.check_output(duration_command, shell=True)
-#                 duration = int(float(duration))
-                
-#                 call_history = serializer.save(callRecord=file_path, duration=duration)
-#                 return Response(CallHistorySerializer(call_history).data, status=status.HTTP_201_CREATED)
-#             else:
-#                 return Response({'error': 'Audio file not provided'}, status=status.HTTP_400_BAD_REQUEST)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#     else:
-#         return Response({'error': 'Method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 class CreateCallHistoryAPIView(APIView):
     def post(self, request, format=None):
@@ -177,6 +151,8 @@ def getClient(req):
     users = CustomUser.objects.filter(post="C")  # Filter users where post="C"
     serializer = CustomUserSerializer(users, many=True)
     return Response(serializer.data)
+
+
 
 
 

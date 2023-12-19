@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import subprocess
+from models.analysis import analyze_sentiment
 
 from .managers import CustomUserManager
 
@@ -42,6 +43,16 @@ class CallHistory(models.Model):
         
         super().clean()
 
+class CallAnalysis(models.Model):
+    call = models.ForeignKey(CallHistory, on_delete=models.CASCADE)
+    tts = models.TextField()
+    negative_score = models.DecimalField(max_digits=12, decimal_places=5)
+    positive_score = models.DecimalField(max_digits=12, decimal_places=5)
+    neutral_score = models.DecimalField(max_digits=12, decimal_places=5)
+    compound_score = models.DecimalField(max_digits=12, decimal_places=5)
+    Emotion = models.CharField(max_length=30)
+
+
 @receiver(post_save, sender=CallHistory)
 def update_duration(sender, instance, created, **kwargs):
     if created and instance.callRecord:
@@ -56,3 +67,19 @@ def update_duration(sender, instance, created, **kwargs):
             # Handle exceptions as per your requirements (e.g., log an error)
             pass
 
+
+# {'tts': 'I am vigneshwaran', 'score': {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0}, 'emo': 'Neutral'}
+@receiver(post_save, sender=CallHistory)
+def analyser(sender, instance, created, **kwargs):
+    if created and instance.callRecord:
+        res = analyze_sentiment(instance.callRecord.path)
+        i = CallAnalysis(
+            call=instance,
+            tts=res["tts"],
+            negative_score = res["score"]["neg"],
+            positive_score  = res["score"]["pos"],
+            neutral_score  = res["score"]["neu"],
+            compound_score  = res["score"]["compound"],
+            Emotion = res["emo"],
+        )
+        i.save()

@@ -32,3 +32,8 @@ class CallHistorySerializer(serializers.ModelSerializer):
         fields = ('id', 'client', 'employee', 'callRecord', 'duration', 'date')
         read_only_fields = ('id', 'client', 'employee')
 
+class CallAnalysisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CallAnalysis
+        fields = ('id', 'call', 'tts', 'negative_score', 'positive_score', 'neutral_score', 'compound_score', 'Emotion')
+
