@@ -33,9 +33,9 @@ def analyze_sentiment(audio_file_path):
         negative = sentiment_scores['neg']
         neutral = sentiment_scores['neu']
         compound = sentiment_scores['compound']
-        if positive>neutral and positive>negative:
+        if compound>0:
             res["emo"] = "Positive"
-        elif negative>neutral :
+        elif compound<0:
             res["emo"] = "Negative"
         else:
             res["emo"] = "Neutral"

@@ -439,7 +439,7 @@ export const grid = [
     width: '0',
     textAlign: 'Center',
   },
-  { field: 'id',
+  { field: 'call',
     headerText: 'Call ID',
     width: '100',
     textAlign: 'Center',
