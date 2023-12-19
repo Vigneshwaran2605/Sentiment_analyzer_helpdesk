@@ -73,6 +73,7 @@ def update_duration(sender, instance, created, **kwargs):
 def analyser(sender, instance, created, **kwargs):
     if created and instance.callRecord:
         res = analyze_sentiment(instance.callRecord.path)
+        print(res)
         i = CallAnalysis(
             call=instance,
             tts=res["tts"],

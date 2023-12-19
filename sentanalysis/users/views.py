@@ -14,6 +14,9 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import parser_classes
 from rest_framework.views import APIView
 import mimetypes
+from pydub import AudioSegment
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 from django.db.models import Sum
 from rest_framework import viewsets
@@ -47,6 +50,24 @@ def send_audio_file(request, pk):
 class CreateCallHistoryAPIView(APIView):
     def post(self, request, format=None):
         audio_file = request.FILES.get('audio_file')
+        if audio_file:
+        # Check if the uploaded file is in OGG format
+            if audio_file.name.endswith('.ogg'):
+                # Convert OGG audio to WAV
+                try:
+                    ogg_audio = AudioSegment.from_file(audio_file)
+                    wav_buffer = BytesIO()
+                    ogg_audio.export(wav_buffer, format='wav')
+                    wav_buffer.seek(0)
+
+                    # Save the WAV data as a new file
+                    wav_file = ContentFile(wav_buffer.read())
+                    wav_file.name = audio_file.name[:-4] + '.wav'  # Change the extension to .wav
+
+                    # Assign the converted WAV file to callRecord
+                    audio_file = wav_file
+                except Exception as e:
+                    return Response({'error': f'Failed to convert OGG to WAV: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if audio_file:
             user_id = request.user.id
