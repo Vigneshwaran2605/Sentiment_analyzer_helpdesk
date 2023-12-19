@@ -9,6 +9,10 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
 import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
+import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
+
+import { employeesData, grid } from '../data/dummy';
+import { Header } from '../components';
 
 
 const DropDown = ({ currentMode }) => (
@@ -20,10 +24,34 @@ const DropDown = ({ currentMode }) => (
 const Performance = () => {
   const { currentColor, currentMode } = useStateContext();
   const percentage = (4.7/5.0) * 100
+  const toolbarOptions = ['Search'];
+
+  const editing = { allowDeleting: true, allowEditing: true };
+
 
   return (
     
     <div className="mt-12">
+
+<div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+      <Header category="Analysis" title="Calls Performance" />
+      <GridComponent
+        dataSource={employeesData}
+        width="auto"
+        allowPaging
+        allowSorting
+        pageSettings={{ pageCount: 5 }}
+        editSettings={editing}
+        toolbar={toolbarOptions}
+      >
+        <ColumnsDirective>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {grid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+        </ColumnsDirective>
+        <Inject services={[Search, Page]} />
+
+      </GridComponent>
+    </div>
     <h1 className='text-white text-5xl mx-20 my-10'>Benjamin's Performance.</h1>
       <div className="flex gap-10 flex-wrap justify-center">
         
