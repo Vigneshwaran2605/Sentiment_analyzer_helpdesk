@@ -18,6 +18,7 @@ import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
 import avatar4 from './avatar4.jpg';
+import BasicModal from './BaicModal';
 import ReactAudioPlayer from 'react-audio-player';
 
 export const gridOrderImage = (props) => (
@@ -67,9 +68,8 @@ const gridEmployeeProfile = (props) => (
 
 const gridEmployeeCountry = (props) => (
   <div className="flex items-center justify-center gap-2">
-    <GrLocation />
-    <span>{props.Country}</span>
-  </div>
+    <BasicModal text={props.Country}/>
+  </div>
 );
 export const EditorData = () => (
   <div>
@@ -431,7 +431,7 @@ export const customersGrid = [
 
 export const grid = [
   { headerText: 'Customer ID',
-    width: '150',
+    width: '100',
     template: gridEmployeeProfile,
     textAlign: 'Center' },
   { field: 'Name',
@@ -441,25 +441,25 @@ export const grid = [
   },
   { field: 'Title',
     headerText: 'Call ID',
-    width: '170',
+    width: '100',
     textAlign: 'Center',
   },
   { headerText: 'Summary',
-    width: '120',
+    width: '200',
     textAlign: 'Center',
     template: gridEmployeeCountry },
 
   { field: 'HireDate',
     headerText: 'Score',
-    width: '135',
+    width: '100',
     format: 'yMd',
     textAlign: 'Center' },
 
   { field: 'ReportsTo',
     headerText: 'Keywords',
     width: '120',
-    textAlign: 'Center' },
- 
+    textAlign: 'Center' },
+ 
 ];
 
 export const employeesGrid = [
