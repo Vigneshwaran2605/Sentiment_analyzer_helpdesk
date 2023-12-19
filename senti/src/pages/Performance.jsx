@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
@@ -11,8 +11,9 @@ import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropd
 import { useStateContext } from '../contexts/ContextProvider';
 import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
 
-import { employeesData, grid } from '../data/dummy';
+import { grid } from '../data/dummy';
 import { Header } from '../components';
+import axios from 'axios';
 
 
 const DropDown = ({ currentMode }) => (
@@ -25,10 +26,16 @@ const Performance = () => {
   const { currentColor, currentMode } = useStateContext();
   const percentage = (4.7/5.0) * 100
   const toolbarOptions = ['Search'];
+  const [employeesData, setEmployeesData] = useState([]);
 
   const editing = { allowDeleting: true, allowEditing: true };
 
-
+  useEffect(()=>{
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("access_token")}`
+    axios.get("api/analysis").then((e) => {
+      setEmployeesData(e.data)
+    })
+  },[])
   return (
     
     <div className="mt-12">

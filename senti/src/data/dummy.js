@@ -62,13 +62,13 @@ export const kanbanGrid = [
 const gridEmployeeProfile = (props) => (
   <div className="flex items-center gap-2">
    
-    <p>{props.Name}</p>
+    <p>{props.client_username}</p>
   </div>
 );
 
 const gridEmployeeCountry = (props) => (
   <div className="flex items-center justify-center gap-2">
-    <BasicModal text={props.Country}/>
+    <BasicModal text={props.tts}/>
   </div>
 );
 export const EditorData = () => (
@@ -439,7 +439,7 @@ export const grid = [
     width: '0',
     textAlign: 'Center',
   },
-  { field: 'Title',
+  { field: 'id',
     headerText: 'Call ID',
     width: '100',
     textAlign: 'Center',
@@ -449,14 +449,14 @@ export const grid = [
     textAlign: 'Center',
     template: gridEmployeeCountry },
 
-  { field: 'HireDate',
+  { field: 'compound_score',
     headerText: 'Score',
     width: '100',
     format: 'yMd',
     textAlign: 'Center' },
 
-  { field: 'ReportsTo',
-    headerText: 'Keywords',
+  { field: 'Emotion',
+    headerText: 'Emotion',
     width: '120',
     textAlign: 'Center' },
  

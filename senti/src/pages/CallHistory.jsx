@@ -50,13 +50,14 @@ const CallHistory = () => {
     })
       .then(response => {
         console.log('Call history created:', response.data);
+        updatedata();
         // Handle successful creation, display success message, etc.
       })
       .catch(error => {
         console.error('There was a problem creating call history:', error);
         // Handle errors, display error message, etc.
       });
-      updatedata()
+      
 
   }
 

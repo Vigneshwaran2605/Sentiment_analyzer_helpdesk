@@ -173,6 +173,19 @@ def getClient(req):
     serializer = CustomUserSerializer(users, many=True)
     return Response(serializer.data)
 
+class CallAnalysisByEmployeeView(generics.ListAPIView):
+    serializer_class = CallAnalysisSerializer
+
+    def get_queryset(self):
+        # Assuming 'employee_id' is passed as a query parameter
+        
+        # Filter CallHistory instances by employee_id
+        call_histories = CallHistory.objects.filter(employee_id=self.request.user.id)
+
+        # Get CallAnalysis instances related to filtered call_histories
+        call_analyses = CallAnalysis.objects.filter(call__in=call_histories)
+        
+        return call_analyses
 
 
 

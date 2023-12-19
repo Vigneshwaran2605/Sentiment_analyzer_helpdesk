@@ -33,7 +33,14 @@ class CallHistorySerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'client', 'employee')
 
 class CallAnalysisSerializer(serializers.ModelSerializer):
+    client_username = serializers.SerializerMethodField()
+
     class Meta:
         model = CallAnalysis
-        fields = ('id', 'call', 'tts', 'negative_score', 'positive_score', 'neutral_score', 'compound_score', 'Emotion')
+        fields = ('id', 'client_username', 'tts', 'negative_score', 'positive_score', 'neutral_score', 'compound_score', 'Emotion', 'call')
+        read_only_fields = ('id', 'client_username', 'tts', 'negative_score', 'positive_score', 'neutral_score', 'compound_score', 'Emotion', 'call')
 
+    def get_client_username(self, obj):
+        if obj.call:
+            return obj.call.client.username
+        return None

@@ -16,5 +16,6 @@ urlpatterns = [
     path('call-history/<int:pk>/del/', delete_call_history, name='delete_call_history'),
     path('call-history/<int:pk>/audio/', send_audio_file, name='send_audio_file'),
     path('details/', details),
+    path('analysis/', CallAnalysisByEmployeeView.as_view()),
     path('', include(router.urls)),
 ]

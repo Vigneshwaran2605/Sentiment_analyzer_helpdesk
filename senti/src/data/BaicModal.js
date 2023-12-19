@@ -31,7 +31,8 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+            <div className=' text-2xl font-semibold'>Summary</div>
+          <Typography id="modal-modal-title" variant="p" component="h2" className=' p-3'>
             {props.text}
           </Typography>
         </Box>

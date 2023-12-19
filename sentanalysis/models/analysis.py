@@ -20,6 +20,7 @@ def analyze_sentiment(audio_file_path):
             recognizer.adjust_for_ambient_noise(source, duration=1)
             print('Processing audio file...')
             recorded_audio = recognizer.record(source)
+        print("------------in----------------------")
         text = recognizer.recognize_google(recorded_audio, language='en-US')
         t_text = translate_text(text)
         res["tts"] = t_text
