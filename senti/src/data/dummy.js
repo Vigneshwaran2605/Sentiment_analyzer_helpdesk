@@ -575,10 +575,11 @@ export const chatData = [
   },
 ];
 
-export const earningData = [
+export function  earningData(calls, duration){
+  return [
   {
     icon: <MdOutlineSupervisorAccount />,
-    amount: '395',
+    amount: calls,
     title: 'Number of Calls',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
@@ -586,7 +587,7 @@ export const earningData = [
   },
   {
     icon: <BsBoxSeam />,
-    amount: '4,396 minutes',
+    amount: `${duration} minutes`,
     percentage: '+23%',
     title: 'Total Call Duration ',
     iconColor: 'rgb(255, 244, 229)',
@@ -612,7 +613,7 @@ export const earningData = [
     iconBg: 'rgb(235, 250, 242)',
     pcColor: 'red-600',
   },
-];
+];}
 
 export const recentTransactions = [
   {

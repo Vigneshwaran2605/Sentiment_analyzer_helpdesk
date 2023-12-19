@@ -147,7 +147,7 @@ return (
       pageSettings={{ pageCount: 5 }}
       selectionSettings={selectionsettings}
       toolbar={toolbarOptions}
-      editSettings={editing}
+      // editSettings={editing}
       allowSorting
     >
       <ColumnsDirective>

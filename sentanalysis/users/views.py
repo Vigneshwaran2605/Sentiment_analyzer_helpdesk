@@ -15,6 +15,8 @@ from rest_framework.decorators import parser_classes
 from rest_framework.views import APIView
 import mimetypes
 
+from django.db.models import Sum
+
 @api_view(['GET'])
 def send_audio_file(request, pk):
     call_history = get_object_or_404(CallHistory, pk=pk)
@@ -161,9 +163,14 @@ def update_call_history(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(["POST"])
-def addCalls(req):
-    pass
+@api_view(["GET"])
+def details(req):
+    noofcalls = CallHistory.objects.filter(employee=req.user.id).count()
+    duration = CallHistory.objects.filter(employee=req.user.id).aggregate(duration=Sum('duration'))['duration']/60
+    return Response({
+        "calls":noofcalls,
+        "duration":duration
+    })
 
 @api_view(['GET'])
 def getClient(req):

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
@@ -7,6 +7,8 @@ import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
 import { earningData, medicalproBranding, recentTransactions, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
+import axios from 'axios';
+import { duration } from '@mui/material';
 
 
 const DropDown = ({ currentMode }) => (
@@ -17,13 +19,24 @@ const DropDown = ({ currentMode }) => (
 
 const Profile = () => {
   const { currentColor, currentMode } = useStateContext();
+  const [data, setData] = useState({
+    calls:0,
+    duration:0
+  });
+
+  useEffect(()=>{
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("access_token")}`
+    axios.get('/api/details',).then((e)=>{
+      setData(e.data)
+    })
+  },[])
 
   return (
     <div className="mt-24">
       <div className="flex flex-wrap lg:flex-nowrap justify-center ">
         
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-          {earningData.map((item) => (
+          {earningData(parseInt(data.calls),Math.round(data.duration* 100)/100).map((item) => (
             <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56  p-4 pt-9 rounded-2xl ">
               <button
                 type="button"
