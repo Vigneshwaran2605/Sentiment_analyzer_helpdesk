@@ -60,11 +60,7 @@ export const kanbanGrid = [
 ];
 const gridEmployeeProfile = (props) => (
   <div className="flex items-center gap-2">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.EmployeeImage}
-      alt="employee"
-    />
+   
     <p>{props.Name}</p>
   </div>
 );
