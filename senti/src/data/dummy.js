@@ -117,16 +117,16 @@ export const EditorData = () => (
   </div>
 );
 const customerGridImage = (props) => (
-  <div className="image flex gap-4">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.CustomerImage}
-      alt="employee"
-    />
-    <div>
-      <p>{props.CustomerName}</p>
-      <p>{props.CustomerEmail}</p>
-    </div>
+  <div className="flex flex-col items-start">
+      <p>{props.client.username}</p>
+      <p className=' text-xs text-gray-600'>{props.client.email}</p>
+  </div>
+);
+
+const customerGridEmp = (props) => (
+  <div className="flex flex-col items-start">
+      <p>{props.employee.username}</p>
+      <p className=' text-xs text-gray-600'>{props.employee.email}</p>
   </div>
 );
 
@@ -388,29 +388,28 @@ export const LinePrimaryYAxis = {
 };
 
 export const customersGrid = [
-  { type: 'checkbox', width: '50' },
-  { headerText: 'Name',
+  // { type: 'checkbox', width: '50' },
+  { headerText: 'Client',
     width: '150',
     template: customerGridImage,
     textAlign: 'Center' },
-  { field: 'ProjectName',
-    headerText: 'Project Name',
+  { template: customerGridEmp,
+    headerText: 'employee',
     width: '150',
     textAlign: 'Center' },
-  { field: 'Status',
-    headerText: 'Status',
+  { field: 'duration',
+    headerText: 'Duration',
     width: '130',
-    format: 'yMd',
     textAlign: 'Center',
-    template: customerGridStatus },
+     },
   {
-    field: 'Weeks',
+    field: '',
     headerText: 'Weeks',
     width: '100',
     format: 'C2',
     textAlign: 'Center' },
-  { field: 'Budget',
-    headerText: 'Budget',
+  { field: 'Date',
+    headerText: 'date',
     width: '100',
     format: 'yMd',
     textAlign: 'Center' },

@@ -9,14 +9,19 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+CORS_ALLOW_ALL_ORIGINS = True
 from datetime import timedelta
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'calls'),
+]
+CSRF_TRUSTED_ORIGINS = ['https://*','http://*','http://localhost:3000']
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +33,7 @@ SECRET_KEY = 'django-insecure-a#*k+23+0yowgcxiio_!_#82h6@*1)*dn_5!1uz6%b3&w8*n@@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','http://localhost:3000']
 
 
 # Application definition
@@ -37,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
      'rest_framework',
      'rest_framework_simplejwt.token_blacklist',
+     
 
 
     'django.contrib.admin',
@@ -51,7 +57,10 @@ INSTALLED_APPS = [
     
 ]
 
+
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'sentanalysis.urls'
@@ -132,6 +140,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://127.0.0.1:3000",
+    "http://localhost",
+    "http://127.0.0.1",
+    # Add other origins if needed
+]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+STATIC_URL = '/static/'  # Add the leading slash
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -147,5 +170,6 @@ SIMPLE_JWT = {
      'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
      'REFRESH_TOKEN_LIFETIME': timedelta(days=28),
      'ROTATE_REFRESH_TOKENS': True,
-     'BLACKLIST_AFTER_ROTATION': True
+     'BLACKLIST_AFTER_ROTATION': True,
+     "TOKEN_OBTAIN_SERIALIZER": "users.serializers.MyTokenObtainPairSerializer",
 }

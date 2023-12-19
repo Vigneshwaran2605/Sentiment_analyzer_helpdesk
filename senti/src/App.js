@@ -24,6 +24,9 @@ const App = () => {
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
+        {(!localStorage.getItem("username"))?<Routes>
+        <Route path="/*" element={<Login />} />
+        </Routes>:
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
             <TooltipComponent
@@ -74,15 +77,11 @@ const App = () => {
                 <Route path="/feedback" element={<Feedback/>}/>
                 <Route path="/call" element={<CallHistory />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/login" element={<Login />} />
-                
-
-
               </Routes>
             </div>
             <Footer />
           </div>
-        </div>
+        </div>}
       </BrowserRouter>
     </div>
   );

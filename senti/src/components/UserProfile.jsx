@@ -9,6 +9,8 @@ import { CgProfile } from "react-icons/cg";
 import { IoCallSharp } from "react-icons/io5";
 import { FiCreditCard } from 'react-icons/fi';
 import { SlCalender } from "react-icons/sl";
+import { logout } from '../utils/access';
+import { logWithIn } from '@syncfusion/ej2-react-charts';
 
 const UserProfile = () => {
   const { currentColor } = useStateContext();
@@ -67,9 +69,9 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Benjamin Franklin </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  Employee   </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> info@techpirates.com </p>
+          <p className="font-semibold text-xl dark:text-gray-200"> {localStorage.getItem("username")} </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">  {localStorage.getItem("post")==="E"?"Employee":"Manager"}  </p>
+          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {localStorage.getItem("email")} </p>
         </div>
       </div>
       <div>
@@ -131,6 +133,7 @@ const UserProfile = () => {
           text="Logout"
           borderRadius="10px"
           width="full"
+          onClick={logout}
         />
       </div>
     </div>

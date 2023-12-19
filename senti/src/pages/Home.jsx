@@ -43,8 +43,8 @@ const Home = () => {
                 alt="user-profile"
               />
               <div className="ml-4">
-                <h2 className='text-3xl'>Welcome Benjamin.</h2>
-                <p className="text-sm text-gray-400 mt-1">Call Center Agent</p>
+                <h2 className='text-3xl'>Welcome {localStorage.getItem("username")}</h2>
+                <p className="text-sm text-gray-400 mt-1">{localStorage.getItem("post")==="E"?"Employee":"Manager"}</p>
               </div>
             </div>
 
