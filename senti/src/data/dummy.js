@@ -18,6 +18,7 @@ import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
 import avatar4 from './avatar4.jpg';
+import ReactAudioPlayer from 'react-audio-player';
 
 export const gridOrderImage = (props) => (
   <div>
@@ -120,6 +121,15 @@ const customerGridImage = (props) => (
   <div className="flex flex-col items-start">
       <p>{props.client.username}</p>
       <p className=' text-xs text-gray-600'>{props.client.email}</p>
+  </div>
+);
+
+const customerplayer = (props) => (
+  <div className="flex flex-col items-start">
+      <ReactAudioPlayer
+  src={`/api/call-history/${props.id}/audio/`}
+  controls
+/>
   </div>
 );
 
@@ -403,28 +413,22 @@ export const customersGrid = [
     textAlign: 'Center',
      },
   {
-    field: '',
-    headerText: 'Weeks',
+    field: 'date',
+    headerText: 'Date',
     width: '100',
     format: 'C2',
     textAlign: 'Center' },
-  { field: 'Date',
-    headerText: 'date',
-    width: '100',
-    format: 'yMd',
-    textAlign: 'Center' },
 
-  { field: 'Location',
-    headerText: 'Location',
-    width: '150',
-    textAlign: 'Center' },
-
-  { field: 'CustomerID',
-    headerText: 'Customer ID',
+  { field: 'id',
+    headerText: 'Call Id',
     width: '120',
     textAlign: 'Center',
     isPrimaryKey: true,
   },
+  { headerText: 'play',
+    width: '200',
+    template: customerplayer,
+    textAlign: 'Center' },
 
 ];
 
