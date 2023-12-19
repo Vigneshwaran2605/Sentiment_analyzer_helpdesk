@@ -1,5 +1,16 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import speech_recognition as sr
+from langid.langid import LanguageIdentifier, model
+from googletrans import Translator
+
+def detect_language(text):
+    identifier = LanguageIdentifier.from_modelstring(model, norm_probs=True)
+    lang, _ = identifier.classify(text)
+    return lang
+def translate_text(text, target_language='en'):
+    translator = Translator()
+    translation = translator.translate(text, dest=target_language)
+    return translation.text
 def analyze_sentiment(audio_file_path):
     recognizer = sr.Recognizer()
     res ={}
@@ -10,10 +21,11 @@ def analyze_sentiment(audio_file_path):
             print('Processing audio file...')
             recorded_audio = recognizer.record(source)
         text = recognizer.recognize_google(recorded_audio, language='en-US')
-        res["tts"] = text
-        print('Transcribed message: {}'.format(text))
+        t_text = translate_text(text)
+        res["tts"] = t_text
+        print('Transcribed message: {}'.format(t_text))
         analyser = SentimentIntensityAnalyzer()
-        sentiment_scores = analyser.polarity_scores(text)
+        sentiment_scores = analyser.polarity_scores(t_text)
         print('Sentiment Scores:', sentiment_scores)
         res["score"] = sentiment_scores
         positive = sentiment_scores['pos']
