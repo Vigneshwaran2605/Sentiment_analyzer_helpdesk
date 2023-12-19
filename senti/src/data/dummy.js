@@ -18,7 +18,7 @@ import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
 import avatar4 from './avatar4.jpg';
-import ReactAudioPlayer from 'react-audio-player';
+import { FaUserClock } from "react-icons/fa6";
 
 export const gridOrderImage = (props) => (
   <div>
@@ -60,11 +60,7 @@ export const kanbanGrid = [
 ];
 const gridEmployeeProfile = (props) => (
   <div className="flex items-center gap-2">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.EmployeeImage}
-      alt="employee"
-    />
+    
     <p>{props.Name}</p>
   </div>
 );
@@ -118,25 +114,16 @@ export const EditorData = () => (
   </div>
 );
 const customerGridImage = (props) => (
-  <div className="flex flex-col items-start">
-      <p>{props.client.username}</p>
-      <p className=' text-xs text-gray-600'>{props.client.email}</p>
-  </div>
-);
-
-const customerplayer = (props) => (
-  <div className="flex flex-col items-start">
-      <ReactAudioPlayer
-  src={`/api/call-history/${props.id}/audio/`}
-  controls
-/>
-  </div>
-);
-
-const customerGridEmp = (props) => (
-  <div className="flex flex-col items-start">
-      <p>{props.employee.username}</p>
-      <p className=' text-xs text-gray-600'>{props.employee.email}</p>
+  <div className="image flex gap-4">
+    <img
+      className="rounded-full w-10 h-10"
+      src={props.CustomerImage}
+      alt="employee"
+    />
+    <div>
+      <p>{props.CustomerName}</p>
+      <p>{props.CustomerEmail}</p>
+    </div>
   </div>
 );
 
@@ -398,38 +385,78 @@ export const LinePrimaryYAxis = {
 };
 
 export const customersGrid = [
-  // { type: 'checkbox', width: '50' },
-  { headerText: 'Client',
+  { type: 'checkbox', width: '50' },
+  { headerText: 'Name',
     width: '150',
     template: customerGridImage,
     textAlign: 'Center' },
-  { template: customerGridEmp,
-    headerText: 'employee',
+  { field: 'ProjectName',
+    headerText: 'Project Name',
     width: '150',
     textAlign: 'Center' },
-  { field: 'duration',
-    headerText: 'Duration',
+  { field: 'Status',
+    headerText: 'Status',
     width: '130',
+    format: 'yMd',
     textAlign: 'Center',
-     },
+    template: customerGridStatus },
   {
-    field: 'date',
-    headerText: 'Date',
+    field: 'Weeks',
+    headerText: 'Weeks',
     width: '100',
     format: 'C2',
     textAlign: 'Center' },
+  { field: 'Budget',
+    headerText: 'Budget',
+    width: '100',
+    format: 'yMd',
+    textAlign: 'Center' },
 
-  { field: 'id',
-    headerText: 'Call Id',
+  { field: 'Location',
+    headerText: 'Location',
+    width: '150',
+    textAlign: 'Center' },
+
+  { field: 'CustomerID',
+    headerText: 'Customer ID',
     width: '120',
     textAlign: 'Center',
     isPrimaryKey: true,
   },
-  { headerText: 'play',
-    width: '200',
-    template: customerplayer,
+
+];
+
+export const grid = [
+  { headerText: 'Customer ID',
+    width: '150',
+    template: gridEmployeeProfile,
+    textAlign: 'Center' },
+  { field: 'Name',
+    headerText: '',
+    width: '0',
+    textAlign: 'Center',
+  },
+  { field: 'Title',
+    headerText: 'Call ID',
+    width: '170',
+    textAlign: 'Center',
+  },
+  { headerText: 'Summary',
+    width: '120',
+    textAlign: 'Center',
+    template: gridEmployeeCountry },
+
+  { field: 'HireDate',
+    headerText: 'Score',
+    width: '135',
+    format: 'yMd',
     textAlign: 'Center' },
 
+  { field: 'ReportsTo',
+    headerText: 'Keywords',
+    width: '120',
+    textAlign: 'Center' },
+ 
 ];
 
 export const employeesGrid = [
@@ -491,6 +518,10 @@ export const links = [
         icon: <IoCallSharp />,
       },
       {
+        name: 'reminder',
+        icon: <FaUserClock  />,
+      },
+      {
         name: 'feedback',
         icon: <MdFeedback />,
       },
@@ -498,6 +529,7 @@ export const links = [
           name: 'performance',
           icon: <AiOutlineStock  />,
         },
+        
       
     ],
   },
@@ -512,6 +544,45 @@ export const links = [
   },
   
 ];
+
+export const employeesData = [
+  {
+    EmployeeID: 1,
+    Name: 'Nancy Davolio',
+    Title: 'Sales Representative',
+    HireDate: '01/02/2021',
+    Country: 'USA',
+    ReportsTo: 'Carson',
+  
+  },
+  {
+    EmployeeID: 2,
+    Name: 'Nasimiyu Danai',
+    Title: 'Marketing Head',
+    HireDate: '01/02/2021',
+    Country: 'USA',
+    ReportsTo: 'Carson',
+    
+  },
+  {
+    EmployeeID: 3,
+    Name: 'Iulia Albu',
+    Title: 'HR',
+    HireDate: '01/02/2021',
+    Country: 'USA',
+    ReportsTo: 'Carson',
+    
+  },
+  {
+    EmployeeID: 4,
+    Name: 'Siegbert Gottfried',
+    Title: 'Marketing Head',
+    HireDate: '01/02/2021',
+    Country: 'USA',
+    ReportsTo: 'Carson',
+    
+  },
+  ]
 
 export const feedbacks = [
   {
@@ -542,7 +613,6 @@ export const feedbacks = [
     ],
   },
 ]
-
 
 export const chatData = [
   {
@@ -575,11 +645,10 @@ export const chatData = [
   },
 ];
 
-export function  earningData(calls, duration){
-  return [
+export const earningData = [
   {
     icon: <MdOutlineSupervisorAccount />,
-    amount: calls,
+    amount: '395',
     title: 'Number of Calls',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
@@ -587,7 +656,7 @@ export function  earningData(calls, duration){
   },
   {
     icon: <BsBoxSeam />,
-    amount: `${duration} minutes`,
+    amount: '4,396 minutes',
     percentage: '+23%',
     title: 'Total Call Duration ',
     iconColor: 'rgb(255, 244, 229)',
@@ -613,7 +682,7 @@ export function  earningData(calls, duration){
     iconBg: 'rgb(235, 250, 242)',
     pcColor: 'red-600',
   },
-];}
+];
 
 export const recentTransactions = [
   {
@@ -665,7 +734,6 @@ export const recentTransactions = [
     pcColor: 'red-600',
   },
 ];
-
 
 
 export const medicalproBranding = {
@@ -766,6 +834,9 @@ export const userProfileData = [
     iconColor: 'rgb(255, 244, 229)',
     iconBg: 'rgb(254, 201, 15)',
   },
+  {
+    
+  }
 ];
 
 export const ordersGrid = [
@@ -1378,7 +1449,6 @@ export const customersData = [
   },
 
 ];
-
 
 
 export const scheduleData = [
