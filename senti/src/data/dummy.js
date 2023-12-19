@@ -432,6 +432,40 @@ export const customersGrid = [
 
 ];
 
+
+export const grid = [
+  { headerText: 'Customer ID',
+    width: '150',
+    template: gridEmployeeProfile,
+    textAlign: 'Center' },
+  { field: 'Name',
+    headerText: '',
+    width: '0',
+    textAlign: 'Center',
+  },
+  { field: 'Title',
+    headerText: 'Call ID',
+    width: '170',
+    textAlign: 'Center',
+  },
+  { headerText: 'Summary',
+    width: '120',
+    textAlign: 'Center',
+    template: gridEmployeeCountry },
+
+  { field: 'HireDate',
+    headerText: 'Score',
+    width: '135',
+    format: 'yMd',
+    textAlign: 'Center' },
+
+  { field: 'ReportsTo',
+    headerText: 'Keywords',
+    width: '120',
+    textAlign: 'Center' },
+ 
+];
+
 export const employeesGrid = [
   { headerText: 'Employee',
     width: '150',
