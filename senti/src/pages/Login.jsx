@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios';
 import { accessTokenCheck } from '../utils/access';
-import bgimg from "../image/Gradient-Background.webp"
+import bgimg from "../image/bgFinal.png"
 import authimg from "../image/309058_key_login_private_protect_protection_icon.svg"
 
 function Login() {
@@ -43,10 +43,10 @@ function Login() {
   }
   return (
     <div className='w-screen h-screen flex'>
-      <img className=' absolute top-0 left-0 w-screen h-screen -z-10' src={bgimg} />
-      <div className='m-auto flex flex-col shadow-lg p-4 gap-4 bg-slate-100/40 rounded-lg'>
+      <img className=' absolute top-0 left-0 w-screen h-screen -z-10 opacity-70' src={bgimg} />
+      <div className='m-auto flex flex-col shadow-lg p-4 gap-4 bg-slate-30/50 rounded-lg'>
         <div className=' text-lg font-semibold flex items-center gap-3'><img src={authimg} className='w-6 h-6' /><span>LOGIN</span></div>
-        <div className='flex flex-row justify-between gap-3 text-center items-center'><input className="outline-none p-2 border-1 rounded-lg w-[20vw] min-w-[250px] bg-white/70 active:shadow-inner" type='text' id='email' ref={emailRef} name='email' placeholder='Email' onKeyDown={(e)=>{
+        <div className='flex flex-row justify-between gap-3 text-center p-y-15 items-center'><input className="outline-none p-2 border-1 rounded-lg w-[20vw] min-w-[250px] bg-white/70 active:shadow-inner" type='text' id='email' ref={emailRef} name='email' placeholder='Email' onKeyDown={(e)=>{
           if(e.key === "Enter"){
             passwordRef.current.focus()
           }

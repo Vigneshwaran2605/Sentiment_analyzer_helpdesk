@@ -57,7 +57,6 @@ const CallHistory = () => {
         console.error('There was a problem creating call history:', error);
         // Handle errors, display error message, etc.
       });
-      
 
   }
 
@@ -148,8 +147,8 @@ const CallHistory = () => {
                 }}
               // showVisualizer={true}
               />
-              <div className=' mb-1'>OR</div>
-              <div className=' flex'>
+              <div className='mb-1'>OR</div>
+              <div className='flex'>
 
                
                 <button
