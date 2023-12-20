@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 import avatar from '../data/avatar.jpg';
 import { MdOutlineWork, MdDesktopMac } from "react-icons/md";
 import { CgArrowTopRight } from "react-icons/cg";
-import axios from 'axios';
+
 
 const Home = () => {
   const item = [

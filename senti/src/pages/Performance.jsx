@@ -74,7 +74,7 @@ const Performance = () => {
 
       </GridComponent>
     </div>
-    <h1 className='text-white text-5xl mx-20 my-10'>Performance.</h1>
+    <h1 className='text-white text-5xl mx-20 my-10'>Performance</h1>
       <div className="flex gap-10 flex-wrap justify-center">
         
         <div>
