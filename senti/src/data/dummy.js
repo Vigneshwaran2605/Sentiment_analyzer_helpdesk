@@ -42,34 +42,42 @@ export const gridOrderStatus = (props) => (
 );
 
 export const kanbanGrid = [
-  { headerText: 'To Do',
+  {
+    headerText: 'To Do',
     keyField: 'Open',
-    allowToggle: true },
+    allowToggle: true
+  },
 
-  { headerText: 'In Progress',
+  {
+    headerText: 'In Progress',
     keyField: 'InProgress',
-    allowToggle: true },
+    allowToggle: true
+  },
 
-  { headerText: 'Testing',
+  {
+    headerText: 'Testing',
     keyField: 'Testing',
     allowToggle: true,
-    isExpanded: false },
+    isExpanded: false
+  },
 
-  { headerText: 'Done',
+  {
+    headerText: 'Done',
     keyField: 'Close',
-    allowToggle: true },
+    allowToggle: true
+  },
 ];
 const gridEmployeeProfile = (props) => (
   <div className="flex items-center gap-2">
-   
+
     <p>{props.client_username}</p>
   </div>
 );
 
 const gridEmployeeCountry = (props) => (
   <div className="flex items-center justify-center gap-2">
-    <BasicModal text={props.tts}/>
-  </div>
+    <BasicModal text={props.tts} />
+  </div>
 );
 export const EditorData = () => (
   <div>
@@ -115,24 +123,26 @@ export const EditorData = () => (
 );
 const customerGridImage = (props) => (
   <div className="flex flex-col items-start">
-      <p>{props.client.username}</p>
-      <p className=' text-xs text-gray-600'>{props.client.email}</p>
+    <p>{props.id}</p>
+    <p className=' text-xs text-gray-600'>{props.client.email}</p>
   </div>
 );
 
+
+
 const customerplayer = (props) => (
   <div className="flex flex-col items-start">
-      <ReactAudioPlayer
-  src={`/api/call-history/${props.id}/audio/`}
-  controls
-/>
+    <ReactAudioPlayer
+      src={`/api/call-history/${props.id}/audio/`}
+      controls
+    />
   </div>
 );
 
 const customerGridEmp = (props) => (
   <div className="flex flex-col items-start">
-      <p>{props.employee.username}</p>
-      <p className=' text-xs text-gray-600'>{props.employee.email}</p>
+    <p>{props.employee.username}</p>
+    <p className=' text-xs text-gray-600'>{props.employee.email}</p>
   </div>
 );
 
@@ -325,20 +335,26 @@ export const colorMappingData = [
 ];
 
 export const rangeColorMapping = [
-  { label: '1°C to 10°C',
+  {
+    label: '1°C to 10°C',
     start: '1',
     end: '10',
-    colors: colorMappingData[1] },
+    colors: colorMappingData[1]
+  },
 
-  { label: '11°C to 20°C',
+  {
+    label: '11°C to 20°C',
     start: '11',
     end: '20',
-    colors: colorMappingData[2] },
+    colors: colorMappingData[2]
+  },
 
-  { label: '21°C to 30°C',
+  {
+    label: '21°C to 30°C',
     start: '21',
     end: '30',
-    colors: colorMappingData[3] },
+    colors: colorMappingData[3]
+  },
 
 ];
 
@@ -395,110 +411,191 @@ export const LinePrimaryYAxis = {
 
 export const customersGrid = [
   // { type: 'checkbox', width: '50' },
-  { headerText: 'Client',
+  {
+    headerText: 'Client',
     width: '150',
     template: customerGridImage,
-    textAlign: 'Center' },
-  { template: customerGridEmp,
+    textAlign: 'Center'
+  },
+  {
+    template: customerGridEmp,
     headerText: 'employee',
     width: '150',
-    textAlign: 'Center' },
-  { field: 'duration',
+    textAlign: 'Center'
+  },
+  {
+    field: 'duration',
     headerText: 'Duration',
     width: '130',
     textAlign: 'Center',
-     },
+  },
   {
     field: 'date',
     headerText: 'Date',
     width: '100',
     format: 'C2',
-    textAlign: 'Center' },
+    textAlign: 'Center'
+  },
 
-  { field: 'id',
+  {
+    field: 'id',
     headerText: 'Call Id',
     width: '120',
     textAlign: 'Center',
     isPrimaryKey: true,
   },
-  { headerText: 'play',
+  {
+    headerText: 'play',
     width: '200',
     template: customerplayer,
-    textAlign: 'Center' },
+    textAlign: 'Center'
+  },
+
+];
+
+export const customersGrid1 = [
+  // { type: 'checkbox', width: '50' },
+  {
+    field: 'id',
+    headerText: 'Employee',
+    width: '120',
+    textAlign: 'Center',
+    isPrimaryKey: true,
+  },
+
+  {
+    field: 'username',
+    headerText: 'Name',
+    width: '130',
+    textAlign: 'Center',
+  },
+  {
+    field: 'total_duration',
+    headerText: 'Duration',
+    width: '100',
+    format: '#s',
+    textAlign: 'Center'
+  },
+  {
+    field: 'total_compound_score',
+    headerText: 'Total score',
+    width: '100',
+    format: 'N3',
+    textAlign: 'Center'
+  },
+  {
+    field: 'total_calls',
+    headerText: 'Total Calls',
+    width: '100',
+    format: 'N0',
+    textAlign: 'Center'
+  },
+  {
+    field: 'avg_compound_score',
+    headerText: 'Avrage Score',
+    width: '100',
+    format: 'N3',
+    textAlign: 'Center'
+  },
+
+
+
 
 ];
 
 
 export const grid = [
-  { headerText: 'Customer ID',
+  {
+    headerText: 'Customer ID',
     width: '100',
     template: gridEmployeeProfile,
-    textAlign: 'Center' },
-  { field: 'Name',
+    textAlign: 'Center'
+  },
+  {
+    field: 'Name',
     headerText: '',
     width: '0',
     textAlign: 'Center',
   },
-  { field: 'call',
+  {
+    field: 'call',
     headerText: 'Call ID',
     width: '100',
     textAlign: 'Center',
   },
-  { headerText: 'Summary',
+  {
+    headerText: 'Summary',
     width: '200',
     textAlign: 'Center',
-    template: gridEmployeeCountry },
+    template: gridEmployeeCountry
+  },
 
-  { field: 'compound_score',
+  {
+    field: 'compound_score',
     headerText: 'Score',
     width: '100',
     format: 'yMd',
-    textAlign: 'Center' },
+    textAlign: 'Center'
+  },
 
-  { field: 'Emotion',
+  {
+    field: 'Emotion',
     headerText: 'Emotion',
     width: '120',
-    textAlign: 'Center' },
- 
+    textAlign: 'Center'
+  },
+
 ];
 
 export const employeesGrid = [
-  { headerText: 'Employee',
+  {
+    headerText: 'Employee',
     width: '150',
     template: gridEmployeeProfile,
-    textAlign: 'Center' },
-  { field: 'Name',
+    textAlign: 'Center'
+  },
+  {
+    field: 'Name',
     headerText: '',
     width: '0',
     textAlign: 'Center',
   },
-  { field: 'Title',
+  {
+    field: 'Title',
     headerText: 'Designation',
     width: '170',
     textAlign: 'Center',
   },
-  { headerText: 'Country',
+  {
+    headerText: 'Country',
     width: '120',
     textAlign: 'Center',
-    template: gridEmployeeCountry },
+    template: gridEmployeeCountry
+  },
 
-  { field: 'HireDate',
+  {
+    field: 'HireDate',
     headerText: 'Hire Date',
     width: '135',
     format: 'yMd',
-    textAlign: 'Center' },
+    textAlign: 'Center'
+  },
 
-  { field: 'ReportsTo',
+  {
+    field: 'ReportsTo',
     headerText: 'Reports To',
     width: '120',
-    textAlign: 'Center' },
-  { field: 'EmployeeID',
+    textAlign: 'Center'
+  },
+  {
+    field: 'EmployeeID',
     headerText: 'Employee ID',
     width: '125',
-    textAlign: 'Center' },
+    textAlign: 'Center'
+  },
 ];
 
-export const links = [
+export const links = () => [
   {
     title: 'Dashboard',
     links: [
@@ -509,15 +606,15 @@ export const links = [
     ],
   },
 
-   {
+  {
     title: 'Pages',
     links: [
       {
-          name: 'profile',
-          icon: <CgProfile />,
-        },
+        name: 'profile',
+        icon: <CgProfile />,
+      },
       {
-        name: 'call',
+        name: (localStorage.getItem('post') === 'M') ? "analysis" : 'call',
         icon: <IoCallSharp />,
       },
       {
@@ -525,22 +622,14 @@ export const links = [
         icon: <MdFeedback />,
       },
       {
-          name: 'performance',
-          icon: <AiOutlineStock  />,
-        },
-      
-    ],
-  },
-  {
-    title: 'Apps',
-    links: [
-      {
-        name: 'calendar',
-        icon: <AiOutlineCalendar />,
+        name: 'performance',
+        icon: <AiOutlineStock />,
       },
+
     ],
   },
-  
+
+
 ];
 
 export const feedbacks = [
@@ -581,7 +670,7 @@ export const employeesData = [
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-  
+
   },
   {
     EmployeeID: 2,
@@ -590,7 +679,7 @@ export const employeesData = [
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    
+
   },
   {
     EmployeeID: 3,
@@ -599,7 +688,7 @@ export const employeesData = [
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    
+
   },
   {
     EmployeeID: 4,
@@ -608,9 +697,9 @@ export const employeesData = [
     HireDate: '01/02/2021',
     Country: 'USA',
     ReportsTo: 'Carson',
-    
+
   },
-  ]
+]
 
 
 export const chatData = [
@@ -644,45 +733,87 @@ export const chatData = [
   },
 ];
 
-export function  earningData(calls, duration){
+export function earningData(calls, duration) {
   return [
-  {
-    icon: <MdOutlineSupervisorAccount />,
-    amount: calls,
-    title: 'Number of Calls',
-    iconColor: '#03C9D7',
-    iconBg: '#E5FAFB',
-    pcColor: 'red-600',
-  },
-  {
-    icon: <BsBoxSeam />,
-    amount: `${duration} minutes`,
-    percentage: '+23%',
-    title: 'Total Call Duration ',
-    iconColor: 'rgb(255, 244, 229)',
-    iconBg: 'rgb(254, 201, 15)',
-    pcColor: 'green-600',
-  },
-  {
-    icon: <FiBarChart />,
-    amount: '45 Responses',
-    percentage: '+38%',
-    title: 'Feedback',
-    iconColor: 'rgb(228, 106, 118)',
-    iconBg: 'rgb(255, 244, 229)',
+    {
+      icon: <MdOutlineSupervisorAccount />,
+      amount: calls,
+      title: 'Number of Calls',
+      iconColor: '#03C9D7',
+      iconBg: '#E5FAFB',
+      pcColor: 'red-600',
+    },
+    {
+      icon: <BsBoxSeam />,
+      amount: `${duration} minutes`,
+      percentage: '+23%',
+      title: 'Total Call Duration ',
+      iconColor: 'rgb(255, 244, 229)',
+      iconBg: 'rgb(254, 201, 15)',
+      pcColor: 'green-600',
+    },
+    {
+      icon: <FiBarChart />,
+      amount: '45 Responses',
+      percentage: '+38%',
+      title: 'Feedback',
+      iconColor: 'rgb(228, 106, 118)',
+      iconBg: 'rgb(255, 244, 229)',
 
-    pcColor: 'green-600',
-  },
-  {
-    icon: <HiOutlineRefresh />,
-    amount: '4.5',
-    percentage: '-12%',
-    title: 'Performance',
-    iconColor: 'rgb(0, 194, 146)',
-    iconBg: 'rgb(235, 250, 242)',
-    pcColor: 'red-600',
-  },
-];}
+      pcColor: 'green-600',
+    },
+    {
+      icon: <HiOutlineRefresh />,
+      amount: '4.5',
+      percentage: '-12%',
+      title: 'Performance',
+      iconColor: 'rgb(0, 194, 146)',
+      iconBg: 'rgb(235, 250, 242)',
+      pcColor: 'red-600',
+    },
+  ];
+}
+
+export function earningData1(member, duration) {
+  return [
+    {
+      icon: <MdOutlineSupervisorAccount />,
+      amount: member,
+      title: 'Number of Members',
+      iconColor: '#03C9D7',
+      iconBg: '#E5FAFB',
+      pcColor: 'red-600',
+    },
+    {
+      icon: <BsBoxSeam />,
+      amount: `${duration} minutes`,
+      percentage: '+23%',
+      title: 'Total Call Duration by team',
+      iconColor: 'rgb(255, 244, 229)',
+      iconBg: 'rgb(254, 201, 15)',
+      pcColor: 'green-600',
+    },
+    {
+      icon: <FiBarChart />,
+      amount: '45 Responses',
+      percentage: '+38%',
+      title: 'Feedback',
+      iconColor: 'rgb(228, 106, 118)',
+      iconBg: 'rgb(255, 244, 229)',
+
+      pcColor: 'green-600',
+    },
+    {
+      icon: <HiOutlineRefresh />,
+      amount: '4.5',
+      percentage: '-12%',
+      title: 'Performance',
+      iconColor: 'rgb(0, 194, 146)',
+      iconBg: 'rgb(235, 250, 242)',
+      pcColor: 'red-600',
+    },
+  ];
+}
 
 export const recentTransactions = [
   {
@@ -851,7 +982,8 @@ export const ordersGrid = [
     editType: 'dropdownedit',
     textAlign: 'Center',
   },
-  { field: 'CustomerName',
+  {
+    field: 'CustomerName',
     headerText: 'Customer Name',
     width: '150',
     textAlign: 'Center',
@@ -1450,6 +1582,8 @@ export const customersData = [
 
 
 
+
+
 export const scheduleData = [
   {
     Id: 1,
@@ -1698,29 +1832,35 @@ export const SparklineAreaData = [
 ];
 
 export const lineCustomSeries = [
-  { dataSource: lineChartData[0],
+  {
+    dataSource: lineChartData[0],
     xName: 'x',
     yName: 'y',
     name: 'Postive',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
-  { dataSource: lineChartData[1],
+  {
+    dataSource: lineChartData[1],
     xName: 'x',
     yName: 'y',
     name: 'Neutral',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
-  { dataSource: lineChartData[2],
+  {
+    dataSource: lineChartData[2],
     xName: 'x',
     yName: 'y',
     name: 'Negative',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
 ];
 
@@ -1783,7 +1923,8 @@ export const stackedChartData = [
 
 export const stackedCustomSeries = [
 
-  { dataSource: stackedChartData[0],
+  {
+    dataSource: stackedChartData[0],
     xName: 'x',
     yName: 'y',
     name: 'Budget',
@@ -1792,7 +1933,8 @@ export const stackedCustomSeries = [
 
   },
 
-  { dataSource: stackedChartData[1],
+  {
+    dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
     name: 'Expense',

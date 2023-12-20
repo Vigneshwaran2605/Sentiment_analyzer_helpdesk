@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -18,7 +18,7 @@ from pydub import AudioSegment
 from io import BytesIO
 from django.core.files.base import ContentFile
 
-from django.db.models import Sum
+from django.db.models import Sum, Count, Avg
 from rest_framework import viewsets
 from .models import CallAnalysis
 from .serializers import CallAnalysisSerializer
@@ -160,16 +160,30 @@ def update_call_history(request, pk):
 
 @api_view(["GET"])
 def details(req):
-    noofcalls = CallHistory.objects.filter(employee=req.user.id).count()
-    duration = CallHistory.objects.filter(employee=req.user.id).aggregate(duration=Sum('duration'))['duration']/60
-    return Response({
-        "calls":noofcalls,
-        "duration":duration
-    })
+    if(req.user.post=='M'):
+        noofcalls = CustomUser.objects.filter(post='E').count()
+        duration = CallHistory.objects.all().aggregate(duration=Sum('duration'))['duration']/60
+        return Response({
+            "members":noofcalls,
+            "duration":duration
+        })
+    else:
+        noofcalls = CallHistory.objects.filter(employee=req.user.id).count()
+        duration = CallHistory.objects.filter(employee=req.user.id).aggregate(duration=Sum('duration'))['duration']/60
+        return Response({
+            "calls":noofcalls,
+            "duration":duration
+        })
 
 @api_view(['GET'])
 def getClient(req):
     users = CustomUser.objects.filter(post="C")  # Filter users where post="C"
+    serializer = CustomUserSerializer(users, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getEmployee(req):
+    users = CustomUser.objects.filter(post="E")  # Filter users where post="C"
     serializer = CustomUserSerializer(users, many=True)
     return Response(serializer.data)
 
@@ -178,14 +192,39 @@ class CallAnalysisByEmployeeView(generics.ListAPIView):
 
     def get_queryset(self):
         # Assuming 'employee_id' is passed as a query parameter
+
         
         # Filter CallHistory instances by employee_id
-        call_histories = CallHistory.objects.filter(employee_id=self.request.user.id)
+        if(self.request.user.post == 'M'):
 
-        # Get CallAnalysis instances related to filtered call_histories
-        call_analyses = CallAnalysis.objects.filter(call__in=call_histories)
-        
-        return call_analyses
+            # Get CallAnalysis instances related to filtered call_histories
+            call_analyses = CallAnalysis.objects.all()
+            
+            return call_analyses
+        else:
+            call_histories = CallHistory.objects.filter(employee_id=self.request.user.id)
+
+            # Get CallAnalysis instances related to filtered call_histories
+            call_analyses = CallAnalysis.objects.filter(call__in=call_histories)
+            
+            return call_analyses
+    
+@api_view(['GET'])
+def employee_call_summary(request):
+    # Get employees' IDs, their total call duration, sum of compound scores,
+    # username, total number of calls attended, and average compound score
+    employees_summary = CustomUser.objects.filter(post='E').annotate(
+        total_duration=Sum('employee_call_history__duration'),
+        total_compound_score=Sum('employee_call_history__callanalysis__compound_score'),
+        total_calls=Count('employee_call_history'),
+        avg_compound_score=Avg('employee_call_history__callanalysis__compound_score')
+    ).values('id', 'username', 'total_duration', 'total_compound_score', 'total_calls', 'avg_compound_score')
+
+    # Convert QuerySet to a list for JSON serialization
+    employees_summary_list = list(employees_summary)
+
+    return JsonResponse({'employees_summary': employees_summary_list})
+    
 
 
 
