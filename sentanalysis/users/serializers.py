@@ -44,3 +44,10 @@ class CallAnalysisSerializer(serializers.ModelSerializer):
         if obj.call:
             return obj.call.client.username
         return None
+    
+class FeedBackSerializer(serializers.ModelSerializer):
+    feedbackFrom = CustomUserSerializer()
+    feedbackTo = CustomUserSerializer()
+    class Meta:
+        model = FeedBack
+        fields = ['id', 'feedbackFrom', 'feedbackTo', 'data']

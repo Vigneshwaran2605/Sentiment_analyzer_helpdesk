@@ -121,13 +121,20 @@ export const EditorData = () => (
     </h3>
   </div>
 );
+const feedbackfrom = (props) => (
+  <div className="flex flex-col items-center">
+    <p>{props.feedbackFrom.username}</p>
+    <p className=' text-xs text-gray-600'>{props.feedbackFrom.email}</p>
+  </div>
+);
+
+
 const customerGridImage = (props) => (
   <div className="flex flex-col items-start">
     <p>{props.id}</p>
     <p className=' text-xs text-gray-600'>{props.client.email}</p>
   </div>
 );
-
 
 
 const customerplayer = (props) => (
@@ -450,6 +457,43 @@ export const customersGrid = [
     template: customerplayer,
     textAlign: 'Center'
   },
+
+];
+
+export const FeedbackGrid = [
+  // { type: 'checkbox', width: '50' },
+  // {
+    //   template: customerGridEmp,
+    //   headerText: 'employee',
+    //   width: '150',
+    //   textAlign: 'Center'
+    // },
+    {
+      field: 'id',
+      headerText: 'Feedback ID',
+      width: '130',
+      textAlign: 'Center',
+    },
+    {
+      headerText: 'From',
+      width: '150',
+      template: feedbackfrom,
+      textAlign: 'Center'
+    },
+  {
+    field: 'data',
+    headerText: 'FeedBack',
+    width: '100',
+    format: '',
+    textAlign: 'Center'
+  },
+
+  // {
+  //   headerText: 'play',
+  //   width: '200',
+  //   template: customerplayer,
+  //   textAlign: 'Center'
+  // },
 
 ];
 

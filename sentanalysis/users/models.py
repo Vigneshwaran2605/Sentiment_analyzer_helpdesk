@@ -53,6 +53,12 @@ class CallAnalysis(models.Model):
     Emotion = models.CharField(max_length=30)
 
 
+class FeedBack(models.Model):
+    feedbackFrom = models.ForeignKey(CustomUser, related_name='feedback_from', on_delete=models.CASCADE)
+    feedbackTo = models.ForeignKey(CustomUser, related_name='feedback_to', on_delete=models.CASCADE)
+    data = models.TextField()
+
+
 @receiver(post_save, sender=CallHistory)
 def update_duration(sender, instance, created, **kwargs):
     if created and instance.callRecord:

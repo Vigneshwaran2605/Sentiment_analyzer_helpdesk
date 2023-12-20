@@ -6,7 +6,6 @@ from .serializers import *
 from .models import *
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import CallHistorySerializer
 import os
 import subprocess
 from django.views.decorators.csrf import csrf_exempt
@@ -21,7 +20,6 @@ from django.core.files.base import ContentFile
 from django.db.models import Sum, Count, Avg
 from rest_framework import viewsets
 from .models import CallAnalysis
-from .serializers import CallAnalysisSerializer
 
 class CallAnalysisReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = CallAnalysis.objects.all()
@@ -225,7 +223,29 @@ def employee_call_summary(request):
 
     return JsonResponse({'employees_summary': employees_summary_list})
     
+class FeedBackViewSet(viewsets.ModelViewSet):
+    queryset = FeedBack.objects.all()
+    serializer_class = FeedBackSerializer
 
+@api_view(['POST'])
+def createFeedBack(req):
+    to = req.data.get("to")
+    to = CustomUser.objects.get(pk=to)
+    ins = FeedBack(
+        feedbackFrom=req.user,
+        feedbackTo=to,
+        data=req.data.get("data")
+    )
+    inss = FeedBackSerializer(ins)
+    
+    ins.save()
+    return Response(inss.data)
 
+@api_view(['GET'])
+def getFeedBack(req):
+    feeds = FeedBack.objects.filter(feedbackTo=req.user.id)
+    serializer = FeedBackSerializer(feeds, many=True)
+    return Response(serializer.data)
+    
 
 
