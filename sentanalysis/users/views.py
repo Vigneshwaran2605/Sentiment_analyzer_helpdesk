@@ -168,9 +168,11 @@ def details(req):
     else:
         noofcalls = CallHistory.objects.filter(employee=req.user.id).count()
         duration = CallHistory.objects.filter(employee=req.user.id).aggregate(duration=Sum('duration'))['duration']/60
+        feeds = FeedBack.objects.count()
         return Response({
             "calls":noofcalls,
-            "duration":duration
+            "duration":duration,
+            "feeds" : feeds
         })
 
 @api_view(['GET'])

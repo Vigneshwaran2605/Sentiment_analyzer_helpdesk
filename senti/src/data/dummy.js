@@ -131,7 +131,7 @@ const feedbackfrom = (props) => (
 
 const customerGridImage = (props) => (
   <div className="flex flex-col items-start">
-    <p>{props.id}</p>
+    <p>{props.client.username}</p>
     <p className=' text-xs text-gray-600'>{props.client.email}</p>
   </div>
 );
@@ -777,7 +777,7 @@ export const chatData = [
   },
 ];
 
-export function earningData(calls, duration) {
+export function earningData(calls, duration, feeds) {
   return [
     {
       icon: <MdOutlineSupervisorAccount />,
@@ -798,7 +798,7 @@ export function earningData(calls, duration) {
     },
     {
       icon: <FiBarChart />,
-      amount: '45 Responses',
+      amount: `${feeds} Responses`,
       percentage: '+38%',
       title: 'Feedback',
       iconColor: 'rgb(228, 106, 118)',
