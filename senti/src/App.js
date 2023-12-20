@@ -4,7 +4,7 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { Performance, Orders, Calendar, Employees, Stacked, Pyramid, CallHistory, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Profile, Home, Feedback } from './pages';
-import { Analysis, ProfileManager } from './pages/Manager'
+import { Analysis, FeedbackManager, ProfileManager } from './pages/Manager'
 import './App.css';
 import Login from './pages/Login'
 
@@ -77,7 +77,7 @@ const App = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/analysis" element={<Analysis />} />
                 
-                <Route path="/feedback" element={<Feedback/>}/>
+                <Route path="/feedback" element={(localStorage.getItem("post")=='M')?<FeedbackManager />:<Feedback />}/>
                 <Route path="/call" element={<CallHistory />} />
                 <Route path="/calendar" element={<Calendar />} />
               </Routes>

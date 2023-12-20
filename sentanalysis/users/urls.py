@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'callanalysis', CallAnalysisReadOnlyViewSet, basename='callanalysis')
+router.register(r'feedback', FeedBackViewSet)
 
 
 urlpatterns = [
@@ -19,5 +20,7 @@ urlpatterns = [
     path('details/', details),
     path('employee-summary/', employee_call_summary),
     path('analysis/', CallAnalysisByEmployeeView.as_view()),
+    path('createFeedback/', createFeedBack),
+    path('getFeedback/', getFeedBack),
     path('', include(router.urls)),
 ]
