@@ -7,7 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import CircularProgress from './CircularProgress';
 import 'react-circular-progressbar/dist/styles.css';
 import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
+import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
 
@@ -27,6 +27,7 @@ const Performance = () => {
   const percentage = (4.7/5.0) * 100
   const toolbarOptions = ['Search'];
   const [employeesData, setEmployeesData] = useState([]);
+  const [ecomPieChartData, setEcomPieChartData] = useState([]);
 
   const editing = { allowDeleting: true, allowEditing: true };
 
@@ -34,6 +35,20 @@ const Performance = () => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("access_token")}`
     axios.get("api/analysis").then((e) => {
       setEmployeesData(e.data)
+      var res = {}
+      console.log(e.data);
+      e.data.forEach((da)=>{
+        if(!res[da.Emotion]){
+          res[da.Emotion]=0
+        }
+        res[da.Emotion] += 1
+      })
+      var r = []
+      Object.keys(res).forEach((da)=>{
+        r.push({x:da,y:res[da],text:da})
+      })
+      console.log(r)
+      setEcomPieChartData(r);
     })
   },[])
   return (
@@ -90,7 +105,7 @@ const Performance = () => {
           </div>
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
             <div>
-              <p className="text-2xl font-semibold ">12 Calls</p>
+              <p className="text-2xl font-semibold ">{`${employeesData.length} Calls`}</p>
               <p className="text-gray-400">Weekly report</p>
             </div>
 
